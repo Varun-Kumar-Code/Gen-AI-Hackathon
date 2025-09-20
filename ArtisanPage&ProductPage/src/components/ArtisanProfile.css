@@ -1,0 +1,1042 @@
+/* ...existing code... */
+
+/* Layout & base */
+:root {
+  --bg:#fff;
+  --muted:#7a6b67;
+  --accent:#8c4c3a;  /* softer warm brown for light mode */
+  --card:#f7efe9;
+  --pill-bg:rgba(47,32,30,0.95);
+  --max-width:420px;
+}
+
+.profile-screen.dark {
+  --bg:#171212;
+  --muted:#67473b;
+  --accent:#bc7f63;  /* beige tone for dark mode */
+  --card:#261d1c;
+  --pill-bg:rgba(255,255,255,0.06);
+  color:#876551;
+  background:var(--bg);
+}
+
+
+*{box-sizing:border-box}
+body,html,#root{height:100%}
+.profile-screen{
+  font-family: Inter, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  max-width:var(--max-width);
+  margin:0 auto;
+  background:var(--bg);
+  color:#2b2b2b;
+  min-height:100vh;
+  position:relative;
+  padding-bottom:96px; /* room for bottom nav */
+}
+
+/* Top bar */
+.top-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 18px;
+}
+
+.top-actions{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+.top-actions button{
+  background:#f3ecea;
+  border-radius:999px;
+  border:none;
+  padding:6px 8px;
+  font-size:14px;
+  cursor:pointer;
+  box-shadow:none;
+}
+
+/* Profile card */
+.profile-card{
+  text-align:center;
+  padding:6px 24px 18px;
+}
+.title{
+  margin:6px 0 10px;
+  font-weight:700;
+  font-size:20px;
+  letter-spacing:0.2px;
+}
+
+/* Avatar with camera/edit badge */
+.avatar-wrap{
+  position:relative;
+  display:inline-block;
+  margin-top:6px;
+}
+.avatar{
+  width:96px;
+  height:96px;
+  border-radius:50%;
+  overflow:hidden;
+  border:2px solid rgba(0,0,0,0.18); /* visible dark border */
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+  background:linear-gradient(180deg,#f8f4f2,#efe6e2);
+}
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.camera{
+  position:absolute;
+  right:-6px;
+  bottom:-6px;
+  background:var(--bg);
+  border-radius:50%;
+  width:34px;
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 6px 16px rgba(0,0,0,0.12);
+  font-size:14px;
+  cursor:pointer;
+  border: none;
+  padding:0;
+  line-height:1;
+}
+.camera:focus{
+  outline:2px solid rgba(111,59,55,0.12);
+  outline-offset:2px;
+}
+
+/* Name & stats */
+.name{
+  margin-top:10px;
+  font-weight:600;
+  font-size:15px;
+}
+.stats{
+  display:flex;
+  justify-content:space-around;
+  margin:12px 0;
+  color:var(--muted);
+}
+.stat{
+  text-align:center;
+}
+.stat .num{
+  font-weight:700;
+  font-size:16px;
+  color:#2b2b2b;
+}
+.stat .label{
+  font-size:12px;
+  margin-top:4px;
+  color:var(--muted);
+}
+
+/* Edit button */
+.edit-btn{
+  background:var(--accent);
+  color:#fff;
+  border:1px solid rgba(0,0,0,0.18); /* dark border for light theme */
+  padding:10px 30px;
+  border-radius:8px;
+  font-weight:600;
+  margin-top:6px;
+  cursor:pointer;
+  box-shadow:0 6px 14px rgba(111,59,55,0.12);
+}
+
+/* Divider */
+.divider{
+  border:none;
+  border-top:1px solid #e7e2e0;
+  margin:12px 0 6px;
+}
+
+/* Grid of posts */
+.grid-wrap{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 8px 12px 140px;
+}
+.grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  column-gap: 32px !important;
+  row-gap: 32px !important;
+  gap: 32px !important;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+.post-card{
+  aspect-ratio: 1/1;            /* force square tiles */
+  min-height: 0;                /* let aspect-ratio control size */
+  overflow:hidden;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  border:1px solid rgba(0,0,0,0.12); /* subtle dark border so posts read as cards */
+  background:#f5f3f2;
+}
+.post-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .28s ease, opacity .18s ease;
+}
+.post-card:hover img{ transform:scale(1.03); }
+
+/* New post tile */
+.new-post{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  color:var(--accent);
+  font-weight:600;
+  align-items:center;
+  justify-content:center;
+}
+.plus{
+  font-size:22px;
+  background:#fff;
+  width:44px;
+  height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  box-shadow:0 6px 14px rgba(111,59,55,0.08);
+}
+.post-label{
+  font-size:12px;
+}
+
+/* Small overlay badge (optional, for counts) */
+.overlay-badge{
+  position:absolute;
+  right:6px;
+  bottom:6px;
+  background:rgba(0,0,0,0.6);
+  color:#fff;
+  padding:4px 6px;
+  border-radius:999px;
+  font-size:11px;
+}
+
+/* Bottom pill navigation */
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:18px;
+  width: min(520px, 86%);
+  max-width:720px;
+  display:flex;
+  gap:14px;
+  align-items:center;
+  justify-content:space-around;
+  padding:10px 16px;
+  border-radius:28px;
+  background: linear-gradient(180deg,#422a28,#6f3b37);
+  box-shadow:
+    0 18px 36px rgba(35,22,20,0.42),
+    inset 0 1px 0 rgba(255,255,255,0.03);
+  z-index:80;
+}
+
+/* each nav button is icon-only and clean */
+.nav-btn{
+  background:transparent;
+  border:none;
+  padding:8px 12px;
+  border-radius:14px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:transform .14s ease, background .14s ease;
+  color: rgba(255,255,255,0.95);
+  outline: none;
+}
+
+/* ensure SVGs render as stroked icons and not as filled circles */
+.nav-btn .icon{
+  width:22px;
+  height:22px;
+  display:block;
+  background:transparent !important;
+  border-radius:0;
+}
+
+/* force paths/rect/circle inside SVG icons to use currentColor stroke and no fill */
+.nav-btn .icon path,
+.nav-btn .icon rect,
+.nav-btn .icon circle,
+.nav-btn .icon line,
+.nav-btn .icon polyline,
+.nav-btn .icon polygon{
+  stroke: currentColor !important;
+  stroke-width: 1.6px !important;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none !important;
+}
+
+/* hover and focus visual */
+.nav-btn:hover, .nav-btn:focus{
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.04);
+}
+
+/* active item appears as a slightly lighter rounded pill */
+.nav-btn.active{
+  background: rgba(255,255,255,0.08);
+  padding:10px 14px;
+  border-radius:16px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+/* active icon slightly brighter (keeps stroke visible) */
+.nav-btn.active .icon path,
+.nav-btn.active .icon rect,
+.nav-btn.active .icon circle{
+  stroke: #fff !important;
+}
+
+/* responsive adjustments */
+@media (max-width:420px){
+  .bottom-nav{ width: min(360px,92%); padding:8px 12px; gap:10px; }
+  .nav-btn .icon{ width:20px; height:20px; }
+  .nav-btn.active{ padding:8px 10px; }
+}
+
+/* dark-mode tweak: keep contrast */
+.profile-screen.dark .bottom-nav{
+  background: linear-gradient(180deg,#2b1f1e,#4e322f);
+}
+.profile-screen.dark .nav-btn{ color: rgba(255,255,255,0.92); }
+
+/* controls above the grid for adding posts */
+.grid-controls{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:12px;
+}
+.add-post-btn, .add-url-btn{
+  background:#6f3b37;
+  color:#fff;
+  border:none;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+.add-url-btn{
+  background:transparent;
+  border:1px solid rgba(111,59,55,0.12);
+  color:var(--muted);
+}
+
+/* Responsive tweaks */
+@media (max-width:420px){
+  .avatar{width:86px;height:86px}
+  .camera{width:30px;height:30px}
+  .edit-btn{padding:9px 22px}
+}
+
+/* Desktop / laptop adjustments */
+@media (min-width: 768px) {
+  .profile-screen{
+    max-width: 760px;    /* allow wider layout on laptops */
+    padding-bottom: 80px;
+  }
+
+  .top-bar{
+    padding: 20px 32px;
+  }
+
+  .back{
+    padding: 8px 12px;
+  }
+  .back-icon{
+    font-size: 28px;    /* larger "<" on larger screens */
+  }
+  .back-text{ font-size: 17px; }
+
+  .profile-card{ padding: 18px 40px 24px; }
+  .title{ font-size: 22px; }
+
+  .avatar{
+    width: 128px;
+    height: 128px;
+    border-width: 8px;
+  }
+  .camera{
+    width: 40px;
+    height: 40px;
+    right: -8px;
+    bottom: -8px;
+    font-size: 15px;
+  }
+
+  .stats{ margin: 18px 0; }
+  .edit-btn{ padding: 12px 36px; font-size: 15px; }
+
+  .grid-wrap{ padding: 12px 24px 80px; }
+  .grid{ grid-template-columns: repeat(4, 1fr); gap: 10px; }
+
+  /* make bottom navigation inline/centered on larger screens */
+  .bottom-nav{
+    position: static;
+    transform: none;
+    left: auto;
+    bottom: auto;
+    width: fit-content;
+    margin: 18px auto 36px;
+    padding: 8px 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-screen{
+    max-width: 920px;
+  }
+
+  .avatar{
+    width: 140px;
+    height: 140px;
+    border-width: 10px;
+  }
+  .camera{ width:44px; height:44px; }
+
+  .grid{ grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .post-card{ border-radius:10px; }
+  .plus{ width:52px; height:52px; font-size:24px; border-radius:10px; }
+
+  .theme-toggle{ width:88px; height:38px; }
+  .theme-toggle .toggle-knob{ width:26px; height:26px; left:7px; }
+  .theme-toggle.dark .toggle-knob{ transform: translateX(44px); }
+}
+
+@media (min-width: 1400px) {
+  .profile-screen{ max-width: 1100px; }
+  .grid{ grid-template-columns: repeat(6, 1fr); gap: 14px; }
+  .back-icon{ font-size: 34px; }
+  .title{ font-size: 24px; }
+  .name{ font-size: 17px; }
+}
+
+/* ...existing code... */
+
+/* Back button: larger left icon */
+.back{
+  background:transparent;
+  border:none;
+  color:#3b302e;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 8px;
+}
+.back-icon{
+  font-size:22px;      /* make the "<" larger */
+  line-height:1;
+  font-weight:700;
+  transform:translateY(-1px);
+}
+.back-text{
+  font-size:16px;
+}
+
+/* make icon slightly smaller on very small screens */
+@media (max-width:360px){
+  .back-icon{font-size:18px}
+}
+
+/* Theme toggle (pill with sun / moon and sliding knob) */
+.theme-toggle{
+  display:inline-flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:6px;
+  width:76px;
+  height:36px;
+  padding:4px;
+  border-radius:999px;
+  background:linear-gradient(180deg,#f3ecea,#efe6e2);
+  border:1px solid rgba(111,59,55,0.06);
+  position:relative;
+  cursor:pointer;
+  transition:background 220ms ease;
+}
+.theme-toggle .sun,
+.theme-toggle .moon{
+  font-size:14px;
+  z-index:2;
+  user-select:none;
+  line-height:1;
+}
+.theme-toggle .sun{ color:var(--accent) }
+.theme-toggle .moon{ color:#cfc4bf }
+
+.theme-toggle .toggle-knob{
+  position:absolute;
+  left:6px;
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 6px 16px rgba(0,0,0,0.12);
+  transition:transform 220ms cubic-bezier(.2,.9,.2,1), background 220ms;
+  z-index:3;
+}
+
+/* dark state (knob moves to right and pill darkens) */
+.theme-toggle.dark{
+  background:linear-gradient(180deg,#372923,#2f231f);
+  border-color:rgba(255,255,255,0.06);
+}
+.theme-toggle.dark .toggle-knob{
+  transform:translateX(40px);
+  background:linear-gradient(180deg,#f7e8de,#fff);
+}
+.theme-toggle.dark .sun{ color:#f3c36b }
+.theme-toggle.dark .moon{ color:#fff }
+
+/* Settings button styled as circular icon like the reference */
+.settings{
+  background:var(--bg);
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  display:inline-grid;
+  place-items:center;
+  border:2px solid rgba(111,59,55,0.06);
+  box-shadow:0 6px 16px rgba(0,0,0,0.08);
+  cursor:pointer;
+  margin-left:8px;
+}
+.settings-icon{
+  font-size:18px;
+  color:#6f4f4b;
+  line-height:1;
+}
+
+/* ensure spacing in top-actions remains consistent */
+.top-actions{ display:flex; align-items:center; gap:8px; }
+
+/* override variables when profile is in dark mode */
+.profile-screen {
+  transition: background 240ms ease, color 240ms ease;
+}
+
+/* dark theme overrides applied to the container when .dark is present */
+.profile-screen.dark{
+  --bg:#171212;
+  --muted:#cfc7c4;
+  --accent:#d9b9a8;
+  --card:#261d1c;
+  --pill-bg:rgba(255,255,255,0.06);
+  color: #efeae7;
+  background: var(--bg);
+}
+
+/* tweak elements that used solid backgrounds to match dark style */
+.profile-screen.dark .avatar{
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  background: linear-gradient(180deg,#2b2322,#1e1514);
+  border-color: rgba(255,255,255,0.02);
+}
+.profile-screen.dark .camera{
+  background: #1b1413;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  color: var(--accent);
+  border: 1px solid rgba(255,255,255,0.03);
+}
+.profile-screen.dark .top-actions button,
+.profile-screen.dark .back{
+  color: #efeae7;
+}
+.profile-screen.dark .back-icon{ color: #efeae7; }
+.profile-screen.dark .edit-btn{
+  background: var(--accent);
+  box-shadow: 0 6px 16px rgba(217,185,168,0.12);
+}
+.profile-screen.dark .post-card{ background: #241b1a; }
+.profile-screen.dark .plus{ background: #1f1514; color: var(--accent) }
+
+/* bottom pill already uses --pill-bg so it will adapt */
+.profile-screen.dark .bottom-nav{
+  background: var(--pill-bg);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.6);
+}
+
+/* ensure the theme-toggle visuals adapt nicely in dark mode (existing .theme-toggle.dark already adjusts) */
+.profile-screen.dark .theme-toggle{ background: linear-gradient(180deg,#372923,#2f231f); border-color: rgba(255,255,255,0.04); }
+
+/* apply dark background to the entire page when component toggles body.ap-dark */
+body.ap-dark {
+  background: #171212; /* same as --bg for dark */
+  color: #efeae7;
+}
+
+/* make root-level container transparent to let body color fill page if needed */
+body.ap-dark .profile-screen {
+  background: transparent;
+}
+
+/* ensure app root and html take full height and no default margins */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+/* subtle delete snackbar (bottom-left) */
+.delete-snackbar{
+  position:fixed;
+  left:24px;
+  bottom:24px;
+  background:rgba(30,26,25,0.95);
+  color:#fff;
+  padding:10px 14px;
+  border-radius:10px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  box-shadow:0 8px 22px rgba(0,0,0,0.24);
+  z-index:120;
+  font-size:14px;
+}
+.delete-snackbar .delete-text{ opacity:0.95; }
+.snackbar-actions .undo-btn{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.14);
+  color:#fff;
+  padding:6px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:700;
+}
+.snackbar-actions .undo-btn:hover{
+  background:rgba(255,255,255,0.06);
+}
+
+/* edit name modal */
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background: rgba(0,0,0,0.36);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:140;
+}
+.modal{
+  background:var(--bg);
+  color:inherit;
+  width: min(520px, 92%);
+  max-width:520px;
+  padding:18px;
+  border-radius:12px;
+  box-shadow:0 18px 48px rgba(0,0,0,0.28);
+}
+.modal h3{ margin:0 0 12px; font-size:18px; }
+.name-input{
+  width:100%;
+  padding:10px 12px;
+  border-radius:8px;
+  border:1px solid rgba(0,0,0,0.08);
+  margin-bottom:12px;
+  font-size:15px;
+  background: #fff;
+  color: #222;
+}
+.profile-screen.dark .modal{ background:#241b1a; color:var(--accent); }
+.profile-screen.dark .name-input{ background:#2b2322; border:1px solid rgba(255,255,255,0.06); color:#efeae7; }
+
+.modal-actions{ display:flex; gap:10px; justify-content:flex-end; }
+.btn{ padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; border:none; }
+.btn-cancel{ background:transparent; border:1px solid rgba(0,0,0,0.08); color:inherit; }
+.btn-save{ background:var(--accent); color:#fff; }
+
+/* keep visuals subtle on dark theme */
+.profile-screen.dark .delete-snackbar{ background:rgba(22,18,17,0.9); }
+
+/* BottomNavigation styles (append at end) */
+.bp-bottom-nav{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:28px;
+  width: min(640px, 86%);
+  max-width:640px;
+  z-index:140;
+  display:flex;
+  justify-content:center;
+  pointer-events:auto;
+  padding:0 12px;
+  /* subtle lift */
+  filter: drop-shadow(0 18px 36px rgba(10,8,7,0.55));
+}
+
+/* inner pill: frosted glass */
+.bp-bottom-nav-inner{
+  width:100%;
+  max-width:520px;
+  margin:0 auto;
+  display:flex;
+  gap:14px;
+  align-items:center;
+  justify-content:space-around;
+  padding:10px 16px;
+  border-radius:34px;
+
+  /* frosted glass surface */
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+
+  /* depth */
+  box-shadow:
+    0 18px 36px rgba(6,4,3,0.48),
+    inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+/* individual item: dot-like with hover/active states */
+.bp-nav-item{
+  width:52px;
+  height:52px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  padding:0;
+  margin:0;
+  cursor:pointer;
+  position:relative;
+  background:transparent;
+  transition: transform .16s ease, background .16s ease;
+  color: rgba(255,255,255,0.92);
+}
+
+/* hide textual label on compact layout */
+.bp-label{ display:none; }
+
+/* lucide icons (stroke) */
+.bp-icon{
+  width:20px;
+  height:20px;
+  stroke: currentColor;
+  fill: none;
+  display:block;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.45));
+}
+
+/* hover lifts slightly */
+.bp-nav-item:hover, .bp-nav-item:focus{
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.03);
+}
+
+/* active: soft rounded square behind white dot effect */
+.bp-nav-item.active{
+  background: rgba(255,255,255,0.08);
+  padding: 8px 12px;
+  border-radius:16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.04);
+  color: #fff;
+}
+
+/* smaller screens: tighten spacing */
+@media (max-width:420px){
+  .bp-bottom-nav-inner{ max-width:360px; gap:10px; padding:8px 12px; }
+  .bp-nav-item{ width:46px; height:46px; }
+  .bp-icon{ width:18px; height:18px; }
+}
+
+/* dark theme tweak: keep frosted, use darker tint */
+.profile-screen.dark .bp-bottom-nav-inner{
+  background: rgba(22,18,17,0.36); /* dark frosted tint */
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow:
+    0 18px 36px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.02);
+}
+.profile-screen.dark .bp-nav-item{ color: rgba(255,255,255,0.94); }
+
+/* reduce floating nav size and tighten spacing */
+.bp-bottom-nav{
+  bottom:24px;
+  width: min(520px, 80%);
+  max-width:520px;       /* reduced from 640 */
+  padding:0 8px;
+  filter: drop-shadow(0 12px 28px rgba(10,8,7,0.48));
+}
+
+.bp-bottom-nav-inner{
+  max-width:460px;       /* slightly narrower inner pill */
+  gap:12px;
+  padding:8px 12px;      /* tighter padding */
+  border-radius:30px;
+}
+
+/* smaller dot/buttons and icons */
+.bp-nav-item{
+  width:44px;
+  height:44px;
+}
+.bp-nav-item:hover, .bp-nav-item:focus{
+  transform: translateY(-2px);
+}
+
+.bp-icon{
+  width:18px;
+  height:18px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.38));
+}
+
+@media (max-width:420px){
+  .bp-bottom-nav-inner{ max-width:340px; gap:10px; padding:8px 10px; }
+  .bp-nav-item{ width:40px; height:40px; }
+  .bp-icon{ width:16px; height:16px; }
+}
+
+/* make the Followers number more visible */
+.stats .stat:nth-child(2) .num{
+  font-size:18px;        /* slightly larger */
+  font-weight:800;
+  color: #2b2b2b;        /* stronger contrast on light theme */
+}
+.stats .stat:nth-child(2) .label{
+  color: var(--muted);
+  font-weight:600;
+}
+
+/* dark-mode tweak for the followers number */
+.profile-screen.dark .stats .stat:nth-child(2) .num{
+  color: #efeae7;        /* bright in dark mode */
+}
+
+/* make all three stats (Product / Followers / Sales) match theFollowers emphasis */
+.stats .stat .num{
+  font-size:18px;
+  font-weight:800;
+  color:#2b2b2b; /* light theme */
+}
+.stats .stat .label{
+  color:var(--muted);
+  font-weight:600;
+}
+
+/* dark-mode variant */
+.profile-screen.dark .stats .stat .num{
+  color:#efeae7;
+}
+
+/* ensure nav icons contrast with theme:
+   - dark (profile-screen.dark): icons white
+   - light (default): icons black
+   Add as overrides at end so they win over earlier rules. */
+.bp-nav-item{
+  color: rgba(0,0,0,0.88) !important; /* black icons on light theme */
+}
+
+/* keep SVG strokes matching currentColor (already used) and remove strong glow */
+.bp-icon{
+  stroke: currentColor !important;
+  fill: none !important;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.10));
+}
+
+/* active state in light theme: slight light overlay so icon remains visible */
+.bp-nav-item.active{
+  color: rgba(0,0,0,0.95) !important;
+  background: rgba(0,0,0,0.06);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+/* dark theme overrides: white icons and softer glows */
+.profile-screen.dark .bp-nav-item{
+  color: rgba(255,255,255,0.94) !important;
+}
+.profile-screen.dark .bp-icon{
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6));
+}
+.profile-screen.dark .bp-nav-item.active{
+  color: #fff !important;
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+/* ensure the pill background doesn't wash out dark icons on light theme */
+.bp-bottom-nav-inner{
+  /* slight light tint for the glass in light theme */
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(0,0,0,0.06);
+  backdrop-filter: blur(6px) saturate(110%);
+}
+/* keep dark pill in dark theme as before */
+.profile-screen.dark .bp-bottom-nav-inner{
+  background: rgba(22,18,17,0.36); /* dark frosted tint */
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Light-theme frosted / glass pill for the floating nav */
+.profile-screen:not(.dark) .bp-bottom-nav-inner{
+  /* translucent gradient + blur for glass effect */
+  background: linear-gradient(180deg, rgba(255,255,255,0.36), rgba(255,255,255,0.14));
+  border: 1px solid rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+
+  /* soft depth so pill reads as floating glass */
+  box-shadow:
+    0 12px 28px rgba(16,22,26,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+}
+
+/* ensure icons contrast and look crisp on the glass */
+.profile-screen:not(.dark) .bp-nav-item{
+  color: rgba(0,0,0,0.88) !important; /* black icons on light glass */
+}
+.profile-screen:not(.dark) .bp-icon{
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.06));
+  stroke: currentColor !important;
+}
+
+/* active style appropriate for light glass */
+.profile-screen:not(.dark) .bp-nav-item.active{
+  background: rgba(0,0,0,0.06);
+  color: rgba(0,0,0,0.95) !important;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6);
+}
+
+/* Fix: unify post grid spacing and ensure tiles don't overflow their cells */
+.grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  column-gap: 32px !important;
+  row-gap: 32px !important;
+  gap: 32px !important;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+
+/* ensure tiles and images can shrink to fit the grid cell */
+.post-card,
+.post-card img {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* center the grid inside the page so large gaps don't push items off-screen */
+.grid-wrap{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 8px 12px 140px;
+}
+
+/* keep sensible gaps on small screens */
+@media (max-width:720px){
+  .grid{ gap:20px !important; column-gap:20px !important; row-gap:20px !important; }
+}
+@media (max-width:420px){
+  .grid{ gap:12px !important; column-gap:12px !important; row-gap:12px !important; }
+  .post-card{ min-height:140px; }
+}
+
+/* small secondary button next to Edit Profile */
+.dashboard-btn{
+  background: transparent;
+  color: var(--muted);
+  border: 15px solid rgba(0,0,0,0.18);
+  padding:10px 22px;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+  transition: background .14s ease, color .14s ease, transform .12s ease;
+}
+.dashboard-btn:hover{
+  background: rgba(0,0,0,0.03);
+  transform: translateY(-2px);
+}
+
+/* dark mode variant */
+.profile-screen.dark .dashboard-btn{
+  color: #efeae7;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.profile-screen.dark .dashboard-btn:hover{
+  background: rgba(255,255,255,0.04);
+}
+
+/* unify Edit Profile and Dashboard button visuals */
+.edit-btn,
+.dashboard-btn {
+  background: #72241d;
+  color: #fff;
+  border: 1px solid rgba(0,0,0,0.18); /* dark border in light theme */
+  padding: 10px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 6px;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(111,59,55,0.12);
+  transition: background .14s ease, transform .12s ease, color .14s ease;
+}
+
+/* ensure Edit Profile and Dashboard use identical font sizing and family */
+.edit-btn,
+.dashboard-btn {
+  font-family: inherit;    /* use same font as the page */
+  font-size: 15px;         /* same size for both buttons */
+  line-height: 1;
+  letter-spacing: 0.2px;
+}
+
+/* keep slight hover lift */
+.edit-btn:hover,
+.dashboard-btn:hover {
+  transform: translateY(-2px);
+  background: color-mix(in srgb, var(--accent) 90%, black 10%);
+}
+
+/* dark-mode variants - keep both consistent */
+.profile-screen.dark .edit-btn,
+.profile-screen.dark .dashboard-btn {
+  background: #fc9874;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(217,185,168,0.12);
+}
+
+/* ensure email icon displays and matches text vertically */
+.email-row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.email-row .email-icon{
+  width:18px;
+  height:18px;
+  display:inline-block;
+  vertical-align:middle;
+  object-fit:contain;
+}
+
+/* optional: slightly brighten icon on light theme and keep white in dark theme */
+.profile-screen:not(.dark) .email-row .email-icon{ filter: none; }
+.profile-screen.dark .email-row .email-icon{ filter: brightness(1.2) contrast(1.05); }
